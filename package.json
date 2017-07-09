@@ -11,8 +11,7 @@
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
     "start": "node build/prod-server.js",
-    "unit": "karma start test/unit/karma.conf.js --single-run",
-    "test": "npm run unit",
+    "test": "karma start test/karma.conf.js --single-run",
     "lint": "eslint --ext .js src"
   },
   "repository": {

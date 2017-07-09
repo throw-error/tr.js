@@ -39,14 +39,15 @@ npm run dev
 # 打包
 npm run build
 
+# 代码检查
+npm run lint
+
 # 跑一次在线测试服务
 npm start
 
 # 测试
-npm run test
+npm test
 
-# 代码检查
-npm run lint
 ```
 
 ## 目录结构
