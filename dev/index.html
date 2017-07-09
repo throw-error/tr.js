@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>Errend.js development</title>
+  </head>
+  <script src="js/context.js"></script>
+  <script src="js/error.js"></script>
+  <script src="js/stack.js"></script>
+  <script src="js/network.js"></script>
+  <script src="js/event.js"></script>
+  <script src="js/stack.js" crossorigin></script>
+  <script>
+  /*
+  Raven.config('http://50dbe04cd1224d439e9c49bf1d0464df@localhost:8000/1', {
+      whitelistUrls: [
+          /localhost/,
+          /127\.0\.0\.1/
+      ]
+  }).install();
+  Raven.debug = true;
+
+  Raven.setUserContext({
+      email: 'me@example.com',
+      id: 5
+  });
+  */
+  </script>
+  <body>
+    <button id="test">Break me</button>
+    <button onclick="divide(1, 0)">Sourcemap breakage</button>
+    <button onclick="derp()">window.onerror</button>
+    <button onclick="testOptions()">test options</button>
+    <button onclick="throwEval()">throw eval</button>
+    <button onclick="testSynthetic()">test synthetic</button>
+    <button onclick="throwString()">throw string</button>
+    <button onclick="showDialog()">show dialog</button>
+    <button onclick="captureMessage()">capture message</button>
+    <button onclick="captureException()">capture exception</button>
+    <button onclick="blobExample()">blob example</button>
+    <input>
+  </body>
+</html>
