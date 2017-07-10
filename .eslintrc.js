@@ -13,6 +13,8 @@ module.exports = {
   //  add your custom rules here
   'rules': {
 
+    "no-global-assign": 0,
+
     /*Possible Errors*/
 
     // 强制在花括号中使用一致的空格
@@ -177,7 +179,7 @@ module.exports = {
     "eqeqeq": [0, "allow-null"],
 
     // 在for-in 循环中要使用if语句
-    "guard-for-in": 2,
+    "guard-for-in": 0,
 
     // 代码中禁止使用alert, confirm, and prompt
     "no-alert": 2,
@@ -500,7 +502,7 @@ module.exports = {
     "id-match": [0, "^[a-z]+([A-Z][a-z]+)*$", { "properties": false }],
 
     //  统一代码缩进方式，默认值是4 spaces.
-    "indent": ["error", "tab"],
+    // "indent": ["error", "indent"],
 
     // 规定了在JSX中的属性值是使用单引号还是双引号,默认使用双引号
     "jsx-quotes": [2, "prefer-double"],
@@ -748,10 +750,10 @@ module.exports = {
     "prefer-const": 1,
 
     // 推荐使用Reflect上的方法替代以前老方法
-    "prefer-reflect": 2,
+    "prefer-reflect": 0,
 
     //  在ES2015(ES6)中推荐使用剩余参数(...rest)代替arguments变量
-    "prefer-rest-params": 2,
+    "prefer-rest-params": 0,
 
     // 在ES2015(ES6)中推荐使用扩展符替代apply()方法
     "prefer-spread": 2,
