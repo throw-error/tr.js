@@ -1,29 +1,103 @@
-const wrapMethod = function(console, level, callback) {
-  const originalConsoleLevel = console[level];
-  const originalConsole = console;
 
-  if (!(level in console)) {
-    return;
+/*
+* Console.js
+*/
+
+class Console {
+
+  constructor(options = {}) {
+
+    // default options
+    if (!options.levels || !options.levels.length) {
+      options.levels = ['log', 'info', 'warn', 'debug', 'error'];
+    }
+
+    // class options
+    this.options = options;
+    this.extra = {};
+
+    // init or destroy
+    if (this.options.disabled) {
+      this.destroy();
+    } else {
+      this.init();
+    }
   }
 
-  const sentryLevel = level === 'warn' ? 'warning' : level;
+  init() {
 
+    // window._console backup
+    window._console = window._console || {}
+    this.options.levels.forEach(level => {
+      if (level in window.console) {
+        window._console[level] = window.console[level];
+      }
+    })
 
-  console[level] = function () {
-    const args = [].slice.call(arguments);
-    const msg = '' + args.join(' ');
-    const data = {level: sentryLevel, logger: 'console', extra: {'arguments': args}};
-    callback && callback(msg, data);
+    // mock console
+    this.mock();
+  }
 
-    // this fails for some browsers. :(
-    if (originalConsoleLevel) {
-      // IE9 doesn't allow calling apply on console functions directly
-      // See: https://stackoverflow.com/questions/5472938/does-ie9-support-console-log-and-is-it-a-real-function#answer-5473193
-      Function.prototype.apply.call(originalConsoleLevel, originalConsole, args);
+  mock() {
+    const _this = this;
+    this.options.levels.forEach(level => {
+      window.console[level] = function() {
+        const args = Array.from(arguments);
+        const message = args.join(' ');
+        Function.prototype.apply.call(window._console[level], window.console, arguments);
+
+        // 防止无限递归，在回调函数中找到相关语句并不执行
+        if (_this.options.callback) {
+          const levelReg = `console.${level}`;
+          const cbFunString = Function.prototype.toString.call(_this.options.callback);
+          if (cbFunString.includes(levelReg)) {
+
+            // 不应该修改用户信息
+            // cbFunString = cbFunString.replace(levelReg, `// ${levelReg}`);
+            // console.info('递归', cbFunString);
+          } else {
+            _this.options.callback({
+              level,
+              message,
+              arguments: args,
+              extra: _this.extra
+            });
+          }
+        }
+      }
+    })
+  }
+
+  destroy() {
+    if (window._console && this.options.levels.length) {
+      this.options.levels.forEach(level => {
+        if (level in window._console) {
+          window.console[level] = window._console[level];
+        }
+      })
     }
-  };
-};
+  }
 
-module.exports = {
-  wrapMethod: wrapMethod
-};
+  disable() {
+    this.options.disabled = true;
+    this.destroy();
+  }
+
+  enable() {
+    this.options.disabled = false;
+    this.init();
+  }
+
+  // 设置额外附带信息
+  setExtra(extra) {
+    const _this = this;
+    _this.extra = Object.assign(_this.extra, extra);
+  }
+
+  get console() {
+    return window._console
+  }
+}
+
+  
+module.exports = Console;

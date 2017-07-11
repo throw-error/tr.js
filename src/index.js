@@ -3,17 +3,32 @@
 
 // 核心库
 // const EError = require('./error');
-const Console = require('./console.bak');
+const Console = require('./console');
 // const EPerformance = require('./performance');
 
+const consolejs = new Console({
+  disabled: true,
+  levels: ['log', 'error', 'warn'],
+  callback(stackLog) {
+    console.info('info', stackLog);
+  }
+})
 
-// Console.wrapMethod(console, 'log', data => {
-//   console.log(data);
-// })
-const a = new Console()
-console.log(a);
+console.log('consolejs', window.console.log);
 
-// console.log(Console.wrapMethod);
+consolejs.enable();
+
+console.log('consolejs', window.console.log);
+
+consolejs.disable();
+
+consolejs.setExtra({ user: 'surmon' });
+
+console.log('test1');
+
+consolejs.enable();
+
+console.log('test2');
 
 // 兼容宿主环境
 const _window = typeof window !== 'undefined' ? window

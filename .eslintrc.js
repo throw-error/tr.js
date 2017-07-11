@@ -182,10 +182,10 @@ module.exports = {
     "guard-for-in": 0,
 
     // 代码中禁止使用alert, confirm, and prompt
-    "no-alert": 2,
+    "no-alert": 0,
 
     // 禁止使用arguments.caller和arguments.callee
-    "no-caller": 2,
+    "no-caller": 0,
 
     // 禁止在case/default语句中使用lexical declarations，例如let, const, function and class
 
@@ -288,7 +288,7 @@ module.exports = {
     "no-param-reassign": 0,
 
     // 禁止使用__proto__属性
-    "no-proto": 2,
+    "no-proto": 0,
 
     // 避免重复声明一个变量
     "no-redeclare": [2, { "builtinGlobals": true }],
@@ -371,7 +371,7 @@ module.exports = {
     "no-label-var": 2,
 
     // 禁止使用某些全局变量
-    "no-restricted-globals": [2, "event"],
+    "no-restricted-globals": [0, "event"],
 
     // 禁止声明外部作用域中已定义的变量
     "no-shadow": 0,
