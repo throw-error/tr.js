@@ -15,6 +15,7 @@ class Console {
     // class options
     this.options = options;
     this.extra = {};
+    this.resetExtra();
 
     // init or destroy
     if (this.options.disabled) {
@@ -27,7 +28,7 @@ class Console {
   init() {
 
     // window._console backup
-    window._console = window._console || {}
+    window._console = window._console || {};
     this.options.levels.forEach(level => {
       if (level in window.console) {
         window._console[level] = window.console[level];
@@ -89,9 +90,23 @@ class Console {
   }
 
   // 设置额外附带信息
-  setExtra(extra) {
-    const _this = this;
-    _this.extra = Object.assign(_this.extra, extra);
+  setExtra(extras) {
+    this.extra = Object.assign(this.extra, extras);
+  }
+
+  // 清空额外信息
+  clearExtra() {
+    this.extra = {};
+  }
+
+  // 重置额外信息为默认设备信息
+  resetExtra() {
+    this.extra.navigator = {};
+    ['appCodeName', 'appName', 'userAgent', 'cookieEnabled', 'language', 'onLine', 'vendor'].forEach(key => {
+      if (key in window.navigator) {
+        this.extra.navigator[key] = window.navigator[key];
+      }
+    })
   }
 
   get console() {
@@ -99,5 +114,4 @@ class Console {
   }
 }
 
-  
 module.exports = Console;

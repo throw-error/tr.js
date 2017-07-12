@@ -7,26 +7,26 @@ const Console = require('./console');
 // const EPerformance = require('./performance');
 
 const consolejs = new Console({
-  disabled: true,
+  // disabled: true,
   levels: ['log', 'error', 'warn'],
   callback(stackLog) {
-    console.info('info', stackLog);
+    console.info('发送回调信息给服务端', stackLog);
   }
 })
 
 console.log('consolejs', window.console.log);
 
-consolejs.enable();
+// consolejs.enable();
 
-console.log('consolejs', window.console.log);
+// console.log('consolejs', window.console.log);
 
-consolejs.disable();
+// consolejs.disable();
 
 consolejs.setExtra({ user: 'surmon' });
 
-console.log('test1');
+// console.log('test1');
 
-consolejs.enable();
+// consolejs.enable();
 
 console.log('test2');
 
