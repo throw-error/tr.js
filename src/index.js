@@ -14,7 +14,7 @@ const consolejs = new Console({
   }
 })
 
-console.log('consolejs', window.console.log);
+// console.log('consolejs', window.console.log);
 
 // consolejs.enable();
 
@@ -28,7 +28,7 @@ consolejs.setExtra({ user: 'surmon' });
 
 // consolejs.enable();
 
-console.log('test2');
+console.log('console test log');
 
 // 兼容宿主环境
 const _window = typeof window !== 'undefined' ? window
