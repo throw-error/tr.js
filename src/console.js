@@ -3,7 +3,7 @@
 * Console.js
 */
 
-class Console {
+class Consolejs {
 
   constructor(options = {}) {
 
@@ -114,4 +114,4 @@ class Console {
   }
 }
 
-module.exports = Console;
+module.exports = Consolejs;

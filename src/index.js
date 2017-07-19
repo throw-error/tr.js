@@ -2,11 +2,11 @@
 // console = null;
 
 // 核心库
-// const EError = require('./error');
-const Console = require('./console');
-// const EPerformance = require('./performance');
+// const Errorjs = require('./error');
+const Consolejs = require('./console');
+// const Performancejs = require('./performance');
 
-const consolejs = new Console({
+const consolejs = new Consolejs({
   // disabled: true,
   levels: ['log', 'error', 'warn'],
   callback(stackLog) {
@@ -46,7 +46,7 @@ class Errend {
 
   _init(options) {
     // this.error = new EError();
-    // this.console = new Console();
+    // this.console = new Consolejs();
     // this.performance = new EPerformance();
     window.errend = this;
   }
