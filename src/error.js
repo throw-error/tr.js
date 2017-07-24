@@ -64,7 +64,7 @@
       stack = e.stack;
     }
     if (stack) {
-      stack = stack.replace(/(.*?)fundebug(.*?)\.js(.*)\n?/gm, '')
+      stack = stack.replace(/(.*?)errend(.*?)\.js(.*)\n?/gm, '')
       stack = stack.replace(/^Error\n/g, '')
       stack = "generated-stack:\n" + stack;
       return stack
@@ -72,7 +72,7 @@
   }
 
   /**
-   * 
+   * 包装器
    * @return {?}
    */
   function wrap() {
@@ -99,14 +99,14 @@
   }
 
   /**
+   * 测试
    * @param {?} err
    * @return {undefined}
    */
   function runTest(err) {
     if (err) {
-      var stack = err.stack;
-      stack = stack.replace(/(.*?)fundebug(.*?)\.js(.*)\n?/gm, '');
-      var errEvent = log(err);
+      let stack = err.stack.replace(/(.*?)errend(.*?)\.js(.*)\n?/gm, '');
+      const errEvent = log(err);
       eventFilter({
         name : errEvent.name || "uncaught error",
         message : errEvent.message,
@@ -338,17 +338,17 @@
     
       /** @type {boolean} */
       r.Fundebug = true;
-      r.open("POST", "https://fundebug.com/javascript/");
+      r.open("POST", "https://errend.io/javascript/");
       r.setRequestHeader("Content-Type", "application/json");
       r.send(payload);
     } else {
     
       /** @type {string} */
-      (new Image).src = "https://fundebug.com/javascript?event=" + encodeURIComponent(payload);
+      (new Image).src = "https://errend.io/javascript?event=" + encodeURIComponent(payload);
     }
   }
   var errend = {};
-  $window.fundebug = errend;
+  $window.errend = errend;
 
   /** @type {boolean} */
   var v = false;
@@ -449,7 +449,7 @@
         type : "notification",
         user : opts && opts.user,
         metaData : opts && opts.metaData
-      }), "fundebug.com" === location.host ? "\u6d5c\u8be7\u7d1d\u6d93\u5d88\ue6e6\u9366\u2035undebug\u7f03\u6220\u73ef\u5a34\u5b2d\u762f\u935d\ufe3c\u7d31\u7487\u5cf0\u76a2Fundebug\u93bb\u638d\u6b22\u95c6\u55d8\u579a\u9352\u7248\u504d\u9428\u52ed\u7d89\u7ed4\u6b19\u7d1d\u9412\u8dfa\u6097\u6769\u6d9c\ue511\u5a34\u5b2d\u762f!" : "\u7487\u950b\u7161\u942a\u5b2e\u5056\u7ee0\u53d8\u4e92\u9359\u5946undebug\u93ba\u0443\u57d7\u9359\ufffd!";
+      }), "errend.io" === location.host ? "\u6d5c\u8be7\u7d1d\u6d93\u5d88\ue6e6\u9366\u2035undebug\u7f03\u6220\u73ef\u5a34\u5b2d\u762f\u935d\ufe3c\u7d31\u7487\u5cf0\u76a2Fundebug\u93bb\u638d\u6b22\u95c6\u55d8\u579a\u9352\u7248\u504d\u9428\u52ed\u7d89\u7ed4\u6b19\u7d1d\u9412\u8dfa\u6097\u6769\u6d9c\ue511\u5a34\u5b2d\u762f!" : "\u7487\u950b\u7161\u942a\u5b2e\u5056\u7ee0\u53d8\u4e92\u9359\u5946undebug\u93ba\u0443\u57d7\u9359\ufffd!";
     }
   };
 
@@ -685,45 +685,7 @@
       }, xhrSend.apply(this, arguments);
     };
   }
-  if ($window.fetch) {
-    var _fetch = $window.fetch;
   
-    /**
-     * @param {?} pool
-     * @param {Object} method
-     * @return {?}
-     */
-    $window.fetch = function(pool, method) {
-      return _fetch.apply(this, arguments).then(function(req) {
-        var data = {
-          type : "fetch",
-          page : {
-            url : $window.location.href,
-            title : document.title
-          },
-          detail : {
-            method : method && method.method || "GET",
-            url : req.url,
-            status : req.status,
-            statusText : req.statusText
-          },
-          time : (new Date).getTime()
-        };
-        if (!errend.silentHttp && 2 !== parseInt(req.status / 100)) {
-          var request = {
-            method : data.detail.method,
-            url : data.detail.url
-          };
-          var error = {
-            status : req.status,
-            statusText : req.statusText
-          };
-          errend.notifyHttpError(request, error);
-        }
-        return callback(data), req;
-      });
-    };
-  }
 
   /** @type {boolean} */
   var isDefine = "function" == typeof define;
