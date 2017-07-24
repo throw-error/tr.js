@@ -8,11 +8,12 @@
    * @return {undefined}
    */
   function addEvent(obj, key, callback) {
-    var val = obj[key];
+    const val = obj[key];
     obj[key] = callback(val);
   }
 
   /**
+   * 验证函数 + 注入？
    * @param {Function} fn
    * @return {?}
    */
@@ -27,17 +28,17 @@
   }
 
   /**
+   * 验证64位的数字+字母组合
    * @param {string} value
    * @return {?}
    */
   function iterator(value) {
-  
     /** @type {RegExp} */
-    var core_rnotwhite = /^[0-9a-z]{64}$/i;
-    return!(!value || !value.match(core_rnotwhite));
+    return!(!value || !value.match(/^[0-9a-z]{64}$/i));
   }
 
   /**
+   * 日志构造器
    * @param {Object} err
    * @return {?}
    */
@@ -52,28 +53,33 @@
   }
 
   /**
+   * 生成一个空的错误堆栈
    * @return {?}
    */
   function clean() {
-    var stack;
+    let stack;
     try {
-      throw new Error("");
+      throw new Error('');
     } catch (e) {
       stack = e.stack;
     }
     if (stack) {
-      return stack = stack.replace(/(.*?)fundebug(.*?)\.js(.*)\n?/gm, ""), stack = stack.replace(/^Error\n/g, ""), stack = "generated-stack:\n" + stack;
+      stack = stack.replace(/(.*?)fundebug(.*?)\.js(.*)\n?/gm, '')
+      stack = stack.replace(/^Error\n/g, '')
+      stack = "generated-stack:\n" + stack;
+      return stack
     }
   }
 
   /**
+   * 
    * @return {?}
    */
   function wrap() {
-    var copies;
+    let copies;
   
     /** @type {Array} */
-    var out = [];
+    const out = [];
   
     /** @type {(Function|null)} */
     var currentFunction = arguments.callee.caller.caller;
@@ -99,7 +105,7 @@
   function runTest(err) {
     if (err) {
       var stack = err.stack;
-      stack = stack.replace(/(.*?)fundebug(.*?)\.js(.*)\n?/gm, "");
+      stack = stack.replace(/(.*?)fundebug(.*?)\.js(.*)\n?/gm, '');
       var errEvent = log(err);
       eventFilter({
         name : errEvent.name || "uncaught error",
@@ -182,10 +188,10 @@
       }
     
       /** @type {string} */
-      var tagName = (element.prefix ? element.prefix + ":" : "") + element.localName;
+      var tagName = (element.prefix ? element.prefix + ":" : '') + element.localName;
     
       /** @type {string} */
-      var pathIndex = data || layout ? "[" + (data + 1) + "]" : "";
+      var pathIndex = data || layout ? "[" + (data + 1) + "]" : '';
       paths.splice(0, 0, tagName + pathIndex);
     }
     return paths.length ? "/" + paths.join("/") : null;
