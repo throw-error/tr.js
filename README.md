@@ -1,17 +1,24 @@
 # Errend.js 
 
-分为三个核心：
+### Core 三个核心：
 
-console.js
-error.js
-performance.js
+- console.js
+- error.js
+- performance.js
+
+### Utils 公共部分：
+
+- fetch.js
 
 可以配置回调接口做的事
 
 分别是
-onError
-onConsole
-onPerformance
+
+fetchUrl
+
+errorFetchUrl
+consoleFetchUrl
+performanceFetchUrl
 
 编译 => 压缩 => 测试 => 输出
 测试 => 测试脚本 => 输出

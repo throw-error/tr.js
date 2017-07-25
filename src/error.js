@@ -270,16 +270,16 @@
 
   /**
    * @param {string} source
-   * @param {?} b
+   * @param {?} target
    * @return {undefined}
    */
-  function extend(source, b) {
-    data = b;
+  function extend(source, target) {
+    data = target;
     callback({
       type : "navigation",
       detail : {
         from : source,
-        to : b
+        to : target
       },
       time : (new Date).getTime()
     });
