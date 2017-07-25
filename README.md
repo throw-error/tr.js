@@ -14,11 +14,11 @@
 
 分别是
 
-fetchUrl
+fetchApi =>
 
-errorFetchUrl
-consoleFetchUrl
-performanceFetchUrl
+- errorFetchApi
+- consoleFetchApi
+- performanceFetchApi
 
 编译 => 压缩 => 测试 => 输出
 测试 => 测试脚本 => 输出

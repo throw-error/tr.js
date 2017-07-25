@@ -1,5 +1,8 @@
 
-// console = null;
+
+require('es5-shim');
+require('es6-promise').polyfill();
+require('whatwg-fetch');
 
 // 核心库
 // const Errorjs = require('./error');
