@@ -11,7 +11,7 @@ var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
 module.exports = {
   entry: {
-    errend: './src/index.js'
+    errend: './src/errend.js'
   },
   output: {
     path: config.build.assetsRoot,

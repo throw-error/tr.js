@@ -1,8 +1,22 @@
 
-
+// polyfill & shim
 require('es5-shim');
 require('es6-promise').polyfill();
-require('whatwg-fetch');
+
+// common lib
+let config = require('./config');
+let Service = require('./utils/service');
+
+// es6 module
+config = config.default || config;
+Service = Service.default || Service;
+
+// network service
+const service = new Service({
+  api: config.api
+});
+
+// console.log('config', config, 'service', service);
 
 // 核心库
 // const Errorjs = require('./error');
@@ -13,7 +27,12 @@ const consolejs = new Consolejs({
   // disabled: true,
   levels: ['log', 'error', 'warn'],
   callback(stackLog) {
-    console.info('发送回调信息给服务端', stackLog);
+    // console.info('发送回调信息给服务端', stackLog);
+    service.sendLog(stackLog).then(res => {
+      // console.info('日志发送成功', res);
+    }).catch(err => {
+      console.debug('日志发送失败', err);
+    })
   }
 })
 
@@ -31,7 +50,7 @@ consolejs.setExtra({ user: 'surmon' });
 
 // consolejs.enable();
 
-console.log('console test log');
+// console.log('console test log');
 
 // 兼容宿主环境
 const _window = typeof window !== 'undefined' ? window

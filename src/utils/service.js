@@ -1,27 +1,27 @@
 
-const config = require('./config');
+const axios = require('axios');
 
 class Service {
 
-	constructor(options) {
-		this.api = options.api || config.api;
-	}
+  constructor(options) {
+    this.api = options.api || {};
+  }
 
-	log(log) {
-		fetch(this.api.log, body: {})
-	}
+  sendLog(log) {
+    return axios.post(this.api.log, log);
+  }
 
-	error(error) {
-		fetch(this.api.error, body: {})
-	}
+  sendError(error) {
+    return axios.post(this.api.error, error);
+  }
 
-	performance(performance) {
-		fetch(this.api.performance, body: {})
-	}
+  sendPerformance(performance) {
+    return axios.post(this.api.performance, performance);
+  }
 
-	setApi() {
-		
-	}
+  setApi(api) {
+    this.options.api = api
+  }
 }
 
 export default Service
